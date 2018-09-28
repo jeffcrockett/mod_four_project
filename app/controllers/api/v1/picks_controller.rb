@@ -8,7 +8,6 @@ before_action :find_pick, only: [:update]
   end
 
   def create
-    byebug
     render json: Pick.create(pick_params)
   end
 
