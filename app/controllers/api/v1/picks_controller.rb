@@ -8,6 +8,7 @@ before_action :find_pick, only: [:update]
   end
 
   def create
+    byebug
     render json: Pick.create(pick_params)
   end
 
@@ -23,7 +24,7 @@ before_action :find_pick, only: [:update]
   private
 
   def pick_params
-    params.permit(:id, :date, :restaurant_id, :user_id, :votes, :confirmed)
+    params.permit(:id, :date, :restaurant_id, :restaurant_name, :user_id, :votes, :confirmed)
   end
 
   def find_pick
