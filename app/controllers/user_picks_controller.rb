@@ -1,0 +1,2 @@
+class UserPicksController < ApplicationController
+end

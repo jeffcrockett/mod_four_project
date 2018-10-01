@@ -1,12 +1,12 @@
 
 
 class Api::V1::PicksController < ApplicationController
-  skip_before_action :authorized, only: [:index, :update]
+  skip_before_action :authorized, only: [:index, :update, :destroy]
   before_action :find_pick, only: [:update]
   
   def index
     @picks = Pick.all
-    render json: @picks
+    render json: @picks, include: ['user']
   end
 
   def create
@@ -20,6 +20,10 @@ class Api::V1::PicksController < ApplicationController
     else
       render json: { errors: @pick.errors.full_messages }, status: :unprocessible_entity
     end
+  end
+
+  def destroy
+    render json: Pick.find(params[:id]).destroy
   end
 
   private
