@@ -1,7 +1,9 @@
 
 
 class Api::V1::PicksController < ApplicationController
-before_action :find_pick, only: [:update]
+  skip_before_action :authorized, only: [:index, :update]
+  before_action :find_pick, only: [:update]
+  
   def index
     @picks = Pick.all
     render json: @picks
