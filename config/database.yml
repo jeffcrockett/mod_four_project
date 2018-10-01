@@ -23,9 +23,9 @@ default: &default
 
 development:
   <<: *default
-  database: 
+  database:
 
-  username: jeff
+  username: 
 
   # The password associated with the postgres role (username).
   password: password
