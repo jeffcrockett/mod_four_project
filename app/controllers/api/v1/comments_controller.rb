@@ -1,14 +1,14 @@
 class Api::V1::CommentsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :create]
+    skip_before_action :authorized, only: [:index, :create, :update]
     # wrap_parameters :comment, include: [:content, :user_id, :pick_id]
-    before_action :get_comment, only: [:show, :update, :destroy]
+    # before_action :get_comment, only: [:show, :updat:destroy]
     
     def index
         render json: Comment.all
     end
 
     def show
-        render json: @comment
+        render json: Comment.find(params[:id])
     end
 
     def create
@@ -16,21 +16,22 @@ class Api::V1::CommentsController < ApplicationController
     end
 
     def update
-        @comment.update(comment_params)
+        @comment = Comment.find(params[:id]).update(comment_params)
         if @comment.save
-        render json: @comment, status: :accepted
+            render json: @comment, status: :accepted
         else
-        render json: { errors: @comment.errors.full_messages }, status: :unprocessible_entity
+            render json: { errors: @comment.errors.full_messages }, status: :unprocessible_entity
         end
     end
 
     def destroy 
-        render json: @comment.destroy 
+        render json: Comment.find(params[:id]).destroy 
     end
 
     private 
     
     def comment_params 
+        byebug
         params.require(:comment).permit(:content, :user_id, :pick_id)
     end
 
