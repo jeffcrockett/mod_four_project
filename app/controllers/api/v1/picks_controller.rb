@@ -20,7 +20,7 @@ class Api::V1::PicksController < ApplicationController
   end
 
   def show 
-    render json: Pick.find(params[:id])
+    render json: Pick.find(params[:id]), include: ['comments.user']
   end
 
   def update

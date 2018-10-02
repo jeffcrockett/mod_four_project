@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :user_picks
   namespace :api do
     namespace :v1 do 
-      resources :picks
+      resources :picks, :comments
       resources :users, only: %i[create]
       post '/login', to: 'auth#create'
       get '/profile', to: 'users#profile'
