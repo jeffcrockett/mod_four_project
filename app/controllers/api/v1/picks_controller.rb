@@ -10,7 +10,13 @@ class Api::V1::PicksController < ApplicationController
   end
 
   def create
-    render json: Pick.create(pick_params)
+    @pick = Pick.create(pick_params)
+    if @pick.save 
+      render json: @pick, status: :accepted
+    else
+      # byebug
+      render json: { errors: @pick.errors.full_messages }, status: :unprocessible_entity
+    end
   end
 
   def show 
