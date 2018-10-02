@@ -1,7 +1,7 @@
 
 
 class Api::V1::PicksController < ApplicationController
-  skip_before_action :authorized, only: [:index, :update, :destroy]
+  skip_before_action :authorized, only: [:index, :update, :destroy, :show]
   before_action :find_pick, only: [:update]
   
   def index
@@ -11,6 +11,10 @@ class Api::V1::PicksController < ApplicationController
 
   def create
     render json: Pick.create(pick_params)
+  end
+
+  def show 
+    render json: Pick.find(params[:id])
   end
 
   def update
@@ -29,7 +33,7 @@ class Api::V1::PicksController < ApplicationController
   private
 
   def pick_params
-    params.permit(:id, :date, :restaurant_id, :restaurant_name, :user_id, :votes, :confirmed)
+    params.permit(:id, :date, :restaurant_id, :restaurant_name, :user_id, :votes, :confirmed, :voter_ids)
   end
 
   def find_pick
