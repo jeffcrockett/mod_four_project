@@ -1,5 +1,5 @@
 class Api::V1::CommentsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :create, :update]
+    skip_before_action :authorized, only: [:index, :create, :update, :destroy]
     # wrap_parameters :comment, include: [:content, :user_id, :pick_id]
     # before_action :get_comment, only: [:show, :updat:destroy]
     
@@ -31,7 +31,6 @@ class Api::V1::CommentsController < ApplicationController
     private 
     
     def comment_params 
-        byebug
         params.require(:comment).permit(:content, :user_id, :pick_id)
     end
 
